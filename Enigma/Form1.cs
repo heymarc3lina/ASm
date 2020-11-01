@@ -25,7 +25,7 @@ namespace Enigma
         private int threadDetecting()
         {
             int numberOfProcessors = Convert.ToInt32(System.Environment.GetEnvironmentVariable("NUMBER_OF_PROCESSORS"));
-            return numberOfProcessors;
+            return 1;
         }
 
         /*Obsługa przycisku 'Start'*/
@@ -45,10 +45,11 @@ namespace Enigma
             }
             
 
-            if (System.IO.File.Exists(textBox4.Text))
-            {
+            //if (System.IO.File.Exists(textBox4.Text))
+            //{
+                //textBox4.Text
                 /*Tekst do zaszyfrowania*/
-                string text = System.IO.File.ReadAllText(textBox4.Text);
+                string text = System.IO.File.ReadAllText(@"L:\enigma\Enigma\plik.txt");
                 /*Zmienna przechowująca długość łańcuch przetwarzanego przez jeden wątek*/
                 int len = setLen(text.Length, numberOfThreads);
                 /*Tablica części tektu podzielonego w zależności od liczby wątków*/
@@ -88,11 +89,11 @@ namespace Enigma
                    System.IO.File.WriteAllText("odp_asm.txt", ans);
                 }
                                 
-            }
-            else
-            {
-                MessageBox.Show("Brak podanego pliku!");
-            }
+          //  }
+          //  else
+           // {
+                //MessageBox.Show("Brak podanego pliku!");
+           // }
 
         }              
 

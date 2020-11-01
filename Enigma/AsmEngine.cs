@@ -17,8 +17,8 @@ namespace Enigma
             this.wordToEncrypt = wordToEncrypt;
             this.initialRingsLayout = initialRingsLayout;
         }
-        [DllImport("AsmEnigma.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Encryption(string a, string initialRingsLayout, byte[] output);
+        [DllImport(@"L:\enigma\Enigma\x64\Debug\AsmEnigma.dll")]//, CallingConvention = CallingConvention.Cdecl)]
+        public static unsafe extern void Encryption(string a, string initialRingsLayout, byte[] output);
 
         
         /*Publiczna metoda wywołująca funkcję szyfrującą*/
@@ -26,7 +26,12 @@ namespace Enigma
         {
             /*Zaszyfrowany tekst zapisywany jest do tablicy bajtów*/
             byte[] encryptedWordInByte = new byte[wordToEncrypt.Length];
-            Encryption(wordToEncrypt, initialRingsLayout, encryptedWordInByte);
+            unsafe
+            {
+                Console.WriteLine(encryptedWordInByte);
+                Encryption(wordToEncrypt, initialRingsLayout, encryptedWordInByte);
+                Console.WriteLine(encryptedWordInByte);
+            }
             /*Konwersja tekstu zapisanego w tablicy bajtów na łańcych znakowy*/
             encryptedWord = System.Text.Encoding.ASCII.GetString(encryptedWordInByte);
         }
