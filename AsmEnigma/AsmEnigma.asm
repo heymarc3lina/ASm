@@ -18,13 +18,13 @@ _DllMainCRTStartup ENDP
 
 		;Przeniesienie. Dla ka¿dego pierœcienia szyfruj¹cego nastêpuje obrót przy innej literze
 		;przyk³adowo dla pierwszego przy literze R, drugiego F itd
-		carriage QWORD 'RFWKA'
+		carriage BYTE 'RFWKA'
 
 		;Bêben odwracaj¹cy
 		invertingCylinder BYTE 'YRUHQSLDPXNGOKMIEBFZCWVJAT',0
 
 		;Pocz¹tkowe ustawienie bêbnów szyfruj¹cych
-		;InitialRingsLayout BYTE 'AAZ'
+		InitialRingsLayout BYTE 'AAZ'
 
 		;Zmienna pomocnicza przechowuj¹ca wartoœæ warunku nast¹pienia obrotu pierœcienia
 		move BYTE 1
@@ -57,12 +57,12 @@ Encryption PROC
 
 
 		;Zapisanie poszczególnych liter pocz¹tkowego ustawienia pierœcieni szyfruj¹cych do tablicy
-		;mov r9b, byte ptr[rdi]   ;pobiera bajt z adresu rdi i przenosi do rejestru r9b
-		;mov byte ptr[InitialRingsLayout], r9b  ;bajt z adresu r9b zostaje zapisany w zmiennej InitialRingsLayout
-		;mov r9b, byte ptr[rdi+1]  ;pobiera kolejny bajt z adresu rdi i przenosi do rejestru r9b
-		;mov byte ptr[InitialRingsLayout+1], r9b   ;bajt z adresu r9b zostaje zapisany w zmiennej InitialRingsLayout
-		;mov r9b, byte ptr[rdi+2]  ;pobiera kolejny bajt z adresu rdi i przenosi do rejestru r9b
-		;mov byte ptr[InitialRingsLayout+2], r9b   ;bajt z adresu r9b zostaje zapisany w zmiennej InitialRingsLayout
+		mov r9b, byte ptr[rdi]   ;pobiera bajt z adresu rdi i przenosi do rejestru r9b
+		mov byte ptr[InitialRingsLayout], r9b  ;bajt z adresu r9b zostaje zapisany w zmiennej InitialRingsLayout
+		mov r9b, byte ptr[rdi+1]  ;pobiera kolejny bajt z adresu rdi i przenosi do rejestru r9b
+		mov byte ptr[InitialRingsLayout+1], r9b   ;bajt z adresu r9b zostaje zapisany w zmiennej InitialRingsLayout
+		mov r9b, byte ptr[rdi+2]  ;pobiera kolejny bajt z adresu rdi i przenosi do rejestru r9b
+		mov byte ptr[InitialRingsLayout+2], r9b   ;bajt z adresu r9b zostaje zapisany w zmiennej InitialRingsLayout
 		
 		mov rsp, rsi							;zapisanie zawartosci rejestru rsi do ejestru rsp
 		mov r11, offset carriage				;zapisanie do rejestru r11 offsetu zmiennej carriage

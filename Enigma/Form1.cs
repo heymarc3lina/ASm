@@ -170,7 +170,7 @@ namespace Enigma
             /*Inicjalizacja obiektów pracujących na poszczególnych częściach tekstu*/
             for (int i = 0; i < numberOfThreads; i++)
             {
-                char[] startRingsLayout = setInitialRingsLayout(textBox2.Text.ToUpper(), len, i);
+                char[] startRingsLayout = setInitialRingsLayout("AAZ", len, i);
                 string q = new string(startRingsLayout);
                 eList[i] = new AsmEngine(onePart[i], q);
             }

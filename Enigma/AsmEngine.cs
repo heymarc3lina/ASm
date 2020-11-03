@@ -30,7 +30,7 @@ namespace Enigma
             {
                 Console.WriteLine(encryptedWordInByte);
                 Encryption(wordToEncrypt, initialRingsLayout, encryptedWordInByte);
-                Console.WriteLine(encryptedWordInByte);
+               
             }
             /*Konwersja tekstu zapisanego w tablicy bajtów na łańcych znakowy*/
             encryptedWord = System.Text.Encoding.ASCII.GetString(encryptedWordInByte);
