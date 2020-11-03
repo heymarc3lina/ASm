@@ -25,7 +25,7 @@ namespace Enigma
         private int threadDetecting()
         {
             int numberOfProcessors = Convert.ToInt32(System.Environment.GetEnvironmentVariable("NUMBER_OF_PROCESSORS"));
-            return 1;
+            return numberOfProcessors;
         }
 
         /*Obsługa przycisku 'Start'*/
@@ -45,8 +45,8 @@ namespace Enigma
             }
             
 
-            //if (System.IO.File.Exists(textBox4.Text))
-            //{
+            if (System.IO.File.Exists(textBox4.Text))
+            {
                 //textBox4.Text
                 /*Tekst do zaszyfrowania*/
                 string text = System.IO.File.ReadAllText(@"L:\enigma\Enigma\plik.txt");
@@ -74,8 +74,9 @@ namespace Enigma
 
                     stopwatch.Start();
                    string ans = csImplementation(onePart, len, numberOfThreads);
-                   System.IO.File.WriteAllText(("odp_"+ numberOfThreads + ".txt"), ans );
                     stopwatch.Stop();
+                    System.IO.File.WriteAllText(("odp_"+ numberOfThreads + ".txt"), ans );
+                    
                     float fTime = stopwatch.ElapsedMilliseconds;
                     MessageBox.Show("Czas trwania w sekundach: " + fTime/1000);
                     //Console.WriteLine(Convert.ToDouble(stopwatch.ElapsedMilliseconds/1000));
@@ -85,15 +86,19 @@ namespace Enigma
                 }
                 else if (this.comboBox1.Text == "Asm")
                 {
+                   stopwatch.Start();
                    string ans = assemblerImplement(onePart, len, numberOfThreads);
-                   System.IO.File.WriteAllText("odp_asm.txt", ans);
+                    stopwatch.Stop();
+                    System.IO.File.WriteAllText(("odp_asm_"+ numberOfThreads+ ".txt"), ans);
+                    float fTime = stopwatch.ElapsedMilliseconds;
+                    MessageBox.Show("Czas trwania w sekundach: " + fTime / 1000);
                 }
                                 
-          //  }
-          //  else
-           // {
-                //MessageBox.Show("Brak podanego pliku!");
-           // }
+          }
+           else
+           {
+                MessageBox.Show("Brak podanego pliku!");
+            }
 
         }              
 
@@ -165,7 +170,7 @@ namespace Enigma
             /*Inicjalizacja obiektów pracujących na poszczególnych częściach tekstu*/
             for (int i = 0; i < numberOfThreads; i++)
             {
-                char[] startRingsLayout = setInitialRingsLayout("AAZ", len, i);
+                char[] startRingsLayout = setInitialRingsLayout(textBox2.Text.ToUpper(), len, i);
                 string q = new string(startRingsLayout);
                 eList[i] = new AsmEngine(onePart[i], q);
             }
